@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Jokes</title>
+    <style>
+        body{
+            background-color: rgb(104, 3, 3);
+            text-align: center;
+            color: gold;
+        }
+        h1 {
+            text-decoration: underline;
+        }
+        #instruction {
+            margin-left: auto;
+            margin-right: auto;
+            width:40%;
+        }
+        a {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">Jokes</h1>
+    <div class="question">
+        <h2><%- question %></h2>
+    </div>
+
+    <div id="answer-container" style="<%- answer ? '' : 'display: none;' %>">
+        <h3><%- answer %></h3>
+    </div>
+
+    <form method="post" action="/revealAnswer">
+        <input type="hidden" name="question" value="<%- question %>">
+        <input type="hidden" name="fullAnswer" value="<%- fullAnswer %>">
+        <input class="button" type="submit" value="Reveal Answer">
+    </form>
+
+    <form method="get" action="/nextQuestion">
+        <input class="button" type="submit" value="Next Question">
+    </form>
+    <a href="/">HOME</a>
+</body>
+
+</html>

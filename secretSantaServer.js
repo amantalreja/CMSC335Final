@@ -3,7 +3,6 @@ const fs = require('fs');
 const ejs = require('ejs');
 const path = require('path');
 const bodyParser = require("body-parser");
-
 require("dotenv").config({ path: path.resolve(__dirname, 'credentialsDontPost/.env') })
 
 const uri = process.env.MONGO_CONNECTION_STRING;
@@ -12,7 +11,7 @@ const databaseAndCollection = {db: process.env.MONGO_DB_NAME, collection: proces
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 
-const portNumber = 10000;
+const portNumber = 5001;
 const app = express();
 
 app.set("views", path.resolve(__dirname, "templates"));
@@ -32,11 +31,13 @@ async function insertUser(user) {
     }
 }
 
+// Index
 const url = "https://www.youtube.com/embed/1giQVuoTAFM";
 app.get("/", (request, response) => {
     response.render("index", {url});
 });
 
+// User Functions
 app.get("/insertUser", (request, response) => {
     response.render("insertUser", {});
 });
@@ -66,6 +67,7 @@ app.post("/processUser", async (request, response) => {
     }
 });
 
+// Removal Functions
 app.get("/remove", (request, response) => {
     response.render("remove", {});
 });
@@ -88,6 +90,7 @@ app.post("/processRemove", async (request, response) => {
     }
 });
 
+// Random Select Functions
 app.get("/randSelect", (request, response) => {
     const value= "<h4> Submit to randomize wishlist </h4>"
     response.render("randomSelector", {value});
@@ -95,15 +98,15 @@ app.get("/randSelect", (request, response) => {
 app.post("/randSelect", async (request, response) => {
     const result = await getRandomWishListHelper();
     let value= "<h4> Name : "+result.name+"</h4>";
-    value+= "<h4> Wishes : "+result.wishes+"</h4>";
     response.render("randomSelector", {value});
 });
 
+// Wishlist Functions
 app.get("/getWishlist",(request,response)=>{
     const value= "<h4> Submit to load wish List </h4>"
     response.render("wishList",{value})
 });
-app.post('/getWishList',async (request,response)=>{
+app.post('/getWishlist',async (request,response)=>{
     const {name} = request.body;
     result = await getWishListHelper(name);
 
@@ -133,17 +136,14 @@ async function getRandomWishListHelper() {
         await client.connect();
         const collection = client.db(databaseAndCollection.db).collection(databaseAndCollection.collection);
 
-        // Get all documents as an array
         const allDocuments = await collection.find({}).toArray();
 
         if (allDocuments.length === 0) {
             return { name: "noname", wishes: "No entries found in the collection" };
         }
 
-        // Select one document randomly
         const randomIndex = Math.floor(Math.random() * allDocuments.length);
         const randomDocument = allDocuments[randomIndex];
-
         return randomDocument;
     } catch (e) {
         console.error(e);
@@ -153,27 +153,46 @@ async function getRandomWishListHelper() {
     }
 }
 
+// API Functions
+async function fetchJoke() {
+    const url = 'https://christmascountdown.live/api/joke';
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching the joke:', error);
+      throw error;
+    }
+}
+
+app.get("/getJokes", async (request, response) => {
+    try {
+      const {question, answer} = await fetchJoke();
+      response.render("getJokes", { question,  answer: null, fullAnswer: answer });
+    } catch (error) {
+      response.status(500).send('Something went wrong while fetching the joke.');
+    }
+});
+
+app.post("/revealAnswer", async (request, response) => {
+      const { question, fullAnswer } = request.body;
+      response.render("getJokes", {question, answer: fullAnswer, fullAnswer });
+});
+
+app.get("/nextQuestion", async (request, response) => {
+    response.redirect("/getJokes");
+});
+
+
 process.stdin.setEncoding("utf8");
-const prompt = "Stop to shutdown the server: ";
 
 app.set("views", path.resolve(__dirname, "templates"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended:false}));
 
 app.listen(portNumber);
-console.log(`Web Server started and running at http://localhost:${portNumber}`);
-
-process.stdout.write(prompt);
-process.stdin.on("readable", function () {
-    const dataInput = process.stdin.read();
-    if (dataInput !== null) {
-        const command = dataInput.trim();
-        if (command === "stop") {
-            process.stdout.write("Shutting down the server");
-            process.exit(0);
-        } else {
-            process.stdout.write(`Invalid command: ${command}\n`)
-        }
-    }
-});
+console.log("server.js is listening on port: " + portNumber);
 
