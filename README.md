@@ -1,7 +1,7 @@
 **Submitted by:** Aman Talreja (directory id: atalreja)
 **Group Members:** Chow-Fong Kust (cfkust)
 **App Description:** Allows users to create a secret santa group, pick a random secret santa, access their wishlist, and get some fun christmas jokes.
-**YouTube Video Link:**
+**YouTube Video Link:** https://www.youtube.com/watch?v=IQU1wjiKOPI
 **APIs:** The Christmas Countdown API.(https://github.com/christmas-countdown/api/tree/main)
 **Contact Email:** cfkust@terpmail.umd.edu, atalreja@terpmail.umd.edu
 **Deployed At:** https://cmsc335final-okqt.onrender.com/
