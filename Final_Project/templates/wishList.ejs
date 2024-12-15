@@ -1,0 +1,43 @@
+<!-- DO NOT MODIFY THIS FILE -->
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Wishlist</title>
+</head>
+
+<body>
+	<h1>Wishlist</h1>
+	<div style="border: 1px solid white;padding:10px;">
+		<form action="http://localhost:5000/getWishList" method="post">
+			<fieldset>
+				<legend>
+					User:
+				</legend>
+				<label><input type="text" name="name" placeholder="Input username here"></label>
+			</fieldset>
+			<br>
+            <input type="submit" value="Check Wish List"/>
+			<input type="reset" />
+		</form>
+        <div id="wishListContainer">
+            <%- value %>
+        </div>
+	</div>
+	<br>
+	<a href="/">HOME</a>
+</body>
+
+</html>
+
+<style>
+	#wishlistInput{
+		width:500px;
+		height:200px;
+	}
+    body{
+        background-color: rgb(104, 3, 3);
+        color: gold;
+    }
+</style>

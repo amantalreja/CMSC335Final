@@ -1,0 +1,51 @@
+<!-- DO NOT MODIFY THIS FILE -->
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Place Order</title>
+</head>
+
+<body>
+	<h1>Insert User Form</h1>
+	<div style="border: 1px solid black;padding:10px;">
+		<form action="http://localhost:5000/processUser" method="post">
+			<fieldset>
+				<legend>
+					Name:
+				</legend>
+				<label><input type="text" name="name" class="input"></label>
+			</fieldset>
+			<fieldset>
+				<legend>Email: </legend>
+				<input type="text" name="email" placeholder="santa@terpmail.umd.edu" class="input"></label>
+			</fieldset>
+			<fieldset>
+				<legend>Wishlist: </legend>
+				<label><input type="text" name="wishes" placeholder="I wish for three more wishes.." id="wishlistInput"></label>
+			</fieldset>
+			<br>
+			<input type="reset" />
+			<input type="submit" value="I DEMAND THIS GIFT"/>
+		</form>
+	</div>
+	<br>
+	<a href="/">HOME</a>
+</body>
+
+</html>
+
+<style>
+	.input{
+		width:200px;
+	}
+	#wishlistInput{
+		width:500px;
+		height:200px;
+	}
+	body{
+        background-color: rgb(104, 3, 3);
+        color: gold;
+    }
+</style>

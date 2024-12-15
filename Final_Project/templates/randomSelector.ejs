@@ -1,0 +1,32 @@
+<!-- DO NOT MODIFY THIS FILE -->
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Random Selector</title>
+</head>
+
+<body>
+	<h1>Random Selector</h1>
+    <h3> Get your Secret Santa:</h3>
+    
+    <form action="http://localhost:5000/randSelect" method="post">
+        <br>
+        <input type="submit" value="RandomPull"/>
+    </form>
+	<div style="border: 1px solid white; padding: 10px; margin-top: 10px;" id="randomPullContainer">
+        <%- value %>
+    </div>
+	<br>
+	<a href="/">HOME</a>
+</body>
+
+</html>
+
+<style>
+	body{
+        background-color: rgb(104, 3, 3);
+        color: gold;
+    }
+</style>

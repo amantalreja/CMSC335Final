@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Secret Santa</title>
+    <style>
+        body{
+            background-color: rgb(104, 3, 3);
+            text-align: center;
+            color: gold;
+        }
+        h1 {
+            text-decoration: underline;
+        }
+        #instruction {
+            margin-left: auto;
+            margin-right: auto;
+            width:40%;
+        }
+        a {
+            font-size: 1.5rem;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="title">Secret Santa</h1>
+    <h2> Instructions:</h2>
+    <div id="instruction">
+        <p>
+            Christmas has almost arrived and what better activity to do with friends
+            than a Secret Santa? Have each person participating input their name, email,
+            and wishlist into the form. Then everyone individually runs the random selector
+            to get a completely random friend to be their Secret Santa.
+        </p>
+        <p>
+            For those who don't know what to get their chosen person, don't worry, because 
+            you can easily check what that person put in their wishlist. Simply put in the 
+            person's name into search and you'll receive a list of presents that they want.
+        </p>
+    </div>
+    <a href="/insertUser">Insert User</a> &nbsp <a href="/randSelect">Random Selector</a> &nbsp <a href="/getWishlist">Get Wishlist</a> &nbsp <a href="/remove">Clear Users</a>
+    <br><br>
+    <iframe width="800" height="400" src=<%- url %>></iframe>
+    <!-- insert api here-->
+</body>
+
+</html>
