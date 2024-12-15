@@ -4,7 +4,7 @@ const ejs = require('ejs');
 const path = require('path');
 const bodyParser = require("body-parser");
 
-require("dotenv").config({ path: path.resolve(__dirname, 'credentialsDontPost/.env') }) 
+require("dotenv").config({ path: path.resolve(__dirname, 'credentialsDontPost/.env') })
 
 const uri = process.env.MONGO_CONNECTION_STRING;
 
@@ -12,7 +12,7 @@ const databaseAndCollection = {db: process.env.MONGO_DB_NAME, collection: proces
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 
-const portNumber = 5000;
+const portNumber = 5001;
 const app = express();
 
 app.set("views", path.resolve(__dirname, "templates"));
@@ -101,7 +101,7 @@ app.post("/randSelect", async (request, response) => {
 
 app.get("/getWishlist",(request,response)=>{
     const value= "<h4> Submit to load wish List </h4>"
-    response.render("wishList",{value})    
+    response.render("wishList",{value})
 });
 app.post('/getWishList',async (request,response)=>{
     const {name} = request.body;
@@ -153,13 +153,13 @@ async function getRandomWishListHelper() {
     }
 }
 
-process.stdin.setEncoding("utf8"); 
+process.stdin.setEncoding("utf8");
 const prompt = "Stop to shutdown the server: ";
 
 app.set("views", path.resolve(__dirname, "templates"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended:false}));
- 
+
 app.listen(portNumber);
 console.log(`Web Server started and running at http://localhost:${portNumber}`);
 
@@ -170,7 +170,7 @@ process.stdin.on("readable", function () {
         const command = dataInput.trim();
         if (command === "stop") {
             process.stdout.write("Shutting down the server");
-            process.exit(0); 
+            process.exit(0);
         } else {
             process.stdout.write(`Invalid command: ${command}\n`)
         }
